@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "poplaukhin.sso.v1;ssov1";
+
+service Auth {
+  // auth service for managing permissions and roles
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  // login service, regin user and returns as auth token
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+// TODO: На будущее, следующий сервис можно описать прямо здесь,
+// либо вынести в отдельный файл
+// service Permissions {
+//    GetUserPermissions(GetUserPermissionsRequest) return UserPermissions
+// }
+
+message RegisterRequest { // register request post data user email and password
+  string email = 1;
+  string password = 2;
+}
+
+message RegisterResponse { // object, which handle(ручка) return
+  int64 user_id = 1;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  int64 app_id = 3;
+}
+
+message LoginResponse {
+  string token = 1;
+}
